@@ -159,10 +159,11 @@ function clearHighlights() {
 
 
 // Function to position predictive text
-function positionPredictiveText(prediction, direction) {
+function positionPredictiveText(prediction, direction, id) {
     const predictionElement = document.createElement('div');
     predictionElement.classList.add('prediction-overlay', `prediction-${direction}`);
     predictionElement.textContent = prediction;
+    predictionElement.id = id;
     console.log(predictionElement)
     return predictionElement;
 }
@@ -177,8 +178,9 @@ function showPredictiveText(predictions) {
 
     // Assuming predictions are an array like ['A', 'B', 'C', 'D']
     const directions = ['top', 'right', 'bottom', 'left'];
+    const ids = ['10001', '10002', '10003', '10004']
     predictions.forEach((pred, index) => {
-        const predElement = positionPredictiveText(pred, directions[index]);
+        const predElement = positionPredictiveText(pred, directions[index], ids[index]);
         selectedKeyElement.appendChild(predElement);
     });
 }
@@ -218,7 +220,24 @@ async function select() {
 //   secondKeyboard(); // Call this function to handle any additional keyboard UI updates
 }
 
+// Additional state to track the predictive text popups
+let predictiveState = {
+  isActive: false,
+  currentPredictionIndex: 0
+};
+
+
 function moveLeft() {
+  // Get the new selected key element by its ID from the keyMap
+  const newSelectedKeyElement = document.getElementById(keyMap[keys[selection]]);
+
+  // Check if this element contains any predictive text overlays
+  const predictiveTextExists = newSelectedKeyElement.querySelector('.prediction-overlay') !== null;
+
+  // if(predictiveTextExists){
+
+  // }
+
   if (selection == 85) {
     oldselection = selection;
     selection = 95;
@@ -229,7 +248,7 @@ function moveLeft() {
     selection = 85;
     addBorder();
     return;
-  } else if (selection == 0) {
+  }else if (selection == 0) {
     oldselection = selection;
     selection = 5;
     addBorder();

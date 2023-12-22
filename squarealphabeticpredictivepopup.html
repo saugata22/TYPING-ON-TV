@@ -18,6 +18,8 @@
       margin: 0 !important;
     }
 
+    
+
     .box {
       width: 51px;
       height: 51px;
@@ -98,31 +100,6 @@
       opacity: 0.5;
     }
 
-    .vstack {
-        display: flex;
-        flex-direction: column;
-        align-items: start; /* Aligns children in the center (horizontally in this case) */
-        width: 100%;
-    }
-
-    /* Align predictive text above the first keyboard column */
-    .predictive-column {
-      position: absolute;
-      top: 150px; /* Adjust as per the height of your input box */
-      left: 50% ; /* Start with 50% and then adjust with transform */
-      transform: translateX(-50%); /* This will center the column, adjust the value inside translateX to align it with the first column of the square layout */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Ensure the rest of the keyboard is positioned correctly if using absolute positioning */
-    #square {
-        position: relative;
-        top: 350px; /* Adjust this value to make space for the predictive text column */
-    }
-
-
     .material-symbols-outlined {
       font-size: 2.25rem !important;
       line-height: 2.25rem !important;
@@ -133,6 +110,41 @@
       'wght'700,
       'GRAD'0,
       'opsz'48
+    }
+
+    .prediction-overlay {
+        position: absolute;
+        width: 30px; /* Match the .box width */
+        height: 30px; /* Match the .box height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #9FACB5; /* Prediction highlight color */
+        color: #343B4A; /* Text color */
+        border-radius: 50%;
+        font-size: 0.75em; /* Smaller font size for the predictions */
+    }
+
+    /* Positioning the predictions around the selected box */
+    .prediction-top {
+        transform: translate(33%, -230%);
+    }
+    
+    .prediction-right {
+        transform: translate(130%, -135%);
+    }
+
+    .prediction-bottom {
+        transform: translate(35%, -40%);
+    }
+
+    .prediction-left {
+        transform: translate(-60%, -135%);
+    }
+
+    /* The selected key should be relatively positioned to contain the absolute overlays */
+    .selected-key {
+        position: relative;
     }
 
     .text-bg-dark:has(> .material-symbols-outlined) {
@@ -147,24 +159,12 @@
   </style>
 </head>
 <body class="bg-secondary text-uppercase fs-4 pt-5">
-  <div id="curtain" class="d-none" >
+  <div id="curtain">
     <p id="inputText" class="form-control mx-auto text-dark fs-4"></p>
     <div class="vstack mt-4 gap-4 mx-auto">
-      <div id="second" class="vstack predictive-column gap-2 mx-auto offactive">
-        <!-- <div class="box box-long looking-for">Looking for?</div> -->
-
-          <div id="105" class="box rounded shadow text-bg-dark"><i class="bi bi-backspace-fill align-self-center align-middle"></i></div>
-        <div id="104" class="box rounded shadow text-bg-dark">A</div>
-        <div id="103" class="box rounded shadow text-bg-dark">B</div>
-        <div id="102" class="box rounded shadow text-bg-dark">C</div>
-        <div id="101" class="box rounded shadow text-bg-dark">D</div>
-        
-        <!-- <div id="105" class="box rounded shadow text-bg-dark">E</div>
-        <div id="106" class="box rounded shadow text-bg-dark">F</div> -->
-        
-      </div>
       <div id="square" class="vstack gap-2">
         <div id="row1" class="hstack gap-2 mx-auto text-center">
+          <!-- <div id="0" class="box shadow rounded text-bg-white">A</div> -->
           <div id="0" class="box shadow rounded text-bg-white">A</div>
           <div id="1" class="box shadow rounded text-bg-dark">B</div>
           <div id="2" class="box shadow rounded text-bg-dark">C</div>
@@ -224,6 +224,6 @@
     </div>
   </div>
   <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="js/squarealphabeticpredictiverow.js"></script>
+  <script src="js/squarealphabeticpredictivepopup.js"></script>
 </body>
 </html>
