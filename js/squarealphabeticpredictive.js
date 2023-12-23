@@ -83,7 +83,7 @@ document.onkeydown = function(e) {
         break;
     }
     moveAlphabets.push(document.getElementById(selection).innerHTML);
-    if (document.getElementById("inputText").innerText == "TIME TO GO SHOPPING") {
+    if (document.getElementById("inputText").innerText == "TIME TO GO SHOPPING" || "THE SECOND LARGEST COUNTRY") {
       window.alert("finish!");
       console.log("Move Count: " + moveCount);
       totalClicks += moveCount;
